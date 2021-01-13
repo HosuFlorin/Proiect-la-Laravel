@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class WinAppConntroller extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,19 @@ class CategoryController extends Controller
     public function index()
     {
       
-        $cat = DB::table('categories')->get();
+        $id=4;
+        $articole = DB::table('articles')
+        ->select("articles.title","articles.context","articles.date","articles.status","articles.slug","articles.image")
+        ->join('categories', 'articles.category_id', '=', 'categories.id')
+        ->where('articles.category_id', $id)
+        ->orderBy('date','DESC')
+        ->get();
+        $tags = DB::table('tags')->get();
 
-        return view('layouts.app', ['cat' => $cat]);
+        return view('/home', ['articole' => $articole, 'tags'=>$tags]);
        
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -50,6 +57,7 @@ class CategoryController extends Controller
      */
     public function show()
     {
+        
     }
 
     /**

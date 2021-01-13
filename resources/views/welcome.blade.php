@@ -13,6 +13,35 @@
         </style>
     </head>
     <body class="antialiased">
-        
-    </body>
+ @section('content')
+<body>
+<div class="container">
+<div class="row justify-content-center">
+    
+    <div class="col-md-9">
+            <h3>Proiect la Proiectarea Aplicatilor Web</h3>
+            <p class="font-weight-bold">Proiectul contine urmatoarele:</p>
+            <p>+ Pagina de Login si Create User , pentru partea de utilizator standard</p>
+            <p>+ Pagina de Login si Create User , pentru Admin</p>
+            <p>+ Adaugare de categorii , taguri, articole , de catre Admin </p>
+            <p>+ Adaugare de  articole , de catre User </p>
+            <p>+ Vizualizare , stergere , clonare , editare, creeare, a articolelor , categoriilor si tagurilor de catre Admin </p>
+            <p>+ Vizualizare, creeare a articolelor de catre User</p>
+            <p>+ Update la  datele personale ,User, Admin</p>
+            <p>+ Search dupa o parte din titlu, sau titlu </p>
+            <p>+ Tagurile pentru cautare </p>
+            <p class="font-weight-bold">Ce as mai vrea sa contina <p>
+            <p>+ Adaugare commentari la articole , User</p>
+            <p>+ Chat pentru User </p>
+            
+    
+    
+    </div>
+</div>
+</div>
+
+
+</body>
 </html>
+@endsection
+

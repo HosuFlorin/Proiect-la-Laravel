@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -21,45 +20,69 @@
     
     <div class="col-md-9">
 
-        @foreach ($articole as $object)
+     @foreach ($articole as $object)
        
         @if($object->status=='PUBLISHED')
-         <form action="/readmore" method="GET">
             <div class="card">
                 <div class="card-header">
                     {{$object->status}}
                     {{$object->date}}
                  </div>
             <div class="card-body">
-                    <input type="hidden" name="read_more" value="{{$object->slug}}" >
-                    <input type="hidden" name="leg" value="{{$object->id}}" >
-                    <h5 class="card-title" > {{ $object->title }}</h5>
-                    <p class="card-text">{{ Str::limit( $object->context, 100)}}</p>     
+                    <h5 class="card-title"> {{ $object->title }}</h5>
+                    <p class="card-text">{{  $object->context }}</p>
+                  
             </div>  
             @if($object->image!="")
-                <img class="card-img-top" src={{$object->image}}></img>
+            <img class="card-img-top" src={{$object->image}}></img>
             @endif
-            <button class="btn btn-dark"  type="submit"> Read More</button>
+            
           </div>  
           <br>
             
-        </form>
           @endif
-          
+        @endforeach
+        
+
+        @foreach ($comment as $object1) 
+        <div class="card">
+                <div class="card-header">
+                    {{$object1->username}}
+                    {{$object1->date}}
+                 </div>
+            <div class="card-body">
+                   
+                    <p class="card-text">{{  $object1->context }}</p>
+                  
+            </div>
+        </div>  
+        <br>
         @endforeach
 
+        <form action="/comentariu" method="GET"> 
+            
+                <input type="hidden" name="username_id" value="{{Auth::user()->id}}"> 
+                @foreach ($articole as $object)
+                    <input type="hidden" name="articol_id" value="{{$object->id}}" > 
+                @endforeach
+                <textarea class="form-control" name="context" rows="8" placeholder="Comment"></textarea>
+                <button type="submit" class="btn btn-primary mb-2">Add Comment</button>
+        </form>
+       
     </div>
+
+
     <div class="col-md-3">
     <h3>Tags</h3>
     @foreach ($tags as $object) 
     <form action="/tags" method="GET" >
-        <input type="hidden" name="taguri" value="{{$object->name}}" class="form-control">    
+        <input type="hidden" name="taguri" value="{{$object->slug}}" class="form-control">    
         <button class="btn btm-primary"  type="submit"> {{$object->name}}</button>
        </form>
-        @endforeach
+       @endforeach  
     </div>
+    
 </div>
 </body>
 </html>
 @endsection
-

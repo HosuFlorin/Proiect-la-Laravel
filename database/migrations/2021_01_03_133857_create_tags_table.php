@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriiTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,17 @@ class CreateCategoriiTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorii', function (Blueprint $table) {
+        Schema::disableForeignKeyConstraints();
+
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug')->unique();
+            $table->softDeletes();
+            $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -26,6 +33,6 @@ class CreateCategoriiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorii');
+        Schema::dropIfExists('tags');
     }
 }

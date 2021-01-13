@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-class CategoryController extends Controller
+use Carbon\Carbon;
+class AddArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,29 @@ class CategoryController extends Controller
     {
       
         $cat = DB::table('categories')->get();
+      
 
-        return view('layouts.app', ['cat' => $cat]);
+        return view('/addarticol', ['cat' => $cat]);
        
+    }
+    public function post(Request $request)
+    {
+        $title=$request->get('title');
+        $slug=$request->get('slug');
+        $categorii=$request->get('categorii');
+        $context=$request->get('context');
+        $image=$request->get('image');
+        $mytime = Carbon::now();
+        DB::table('articles')->insert([
+            'category_id' => $categorii,
+            'title' => $title,
+            'slug'=>$slug,
+            'context'=>$context,
+            'image'=>$image,
+            'status'=>'DRAFT',
+            'date'=>$mytime->toDateTimeString()
+        ]);
+        return view('/welcome');
     }
 
     /**

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
-class CategoryController extends Controller
+class ContinutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +16,30 @@ class CategoryController extends Controller
     public function index()
     {
       
-        $cat = DB::table('categories')->get();
+        $articole = DB::table('articles') ->orderBy('date','DESC')->get();
+        $tags = DB::table('tags')->get();
 
-        return view('layouts.app', ['cat' => $cat]);
+        return view('/home', ['articole' => $articole, 'tags'=>$tags]);
        
     }
+    public function comentariu (Request $request)
+    {
+        $user_id=$request->get('username_id');
+        $articol_id=$request->get('articol_id');
+        $context=$request->get('context');
+        $date=Carbon::now();
+        DB::table('comments')->insert([
+            'user_id' => $user_id,
+            'articol_id' => $articol_id,
+            'date'=>$date->toDateTimeString(),
+            'context'=>$context  
+        ]);
+        
+        return redirect()->back(); 
+
+    
+    }
+    
 
     /**
      * Show the form for creating a new resource.

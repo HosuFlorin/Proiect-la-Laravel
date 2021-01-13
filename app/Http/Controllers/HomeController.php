@@ -7,6 +7,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -53,5 +54,43 @@ class HomeController extends Controller
         }
          return view('home');
      }
-     
+public function search( Request $request )
+     {
+        $search= $request->get('search');
+        $articole= DB::table('articles')->where('title','like','%'.$search.'%')->paginate(5);
+        $tags = DB::table('tags')->get();
+        return view('home',['articole'=>$articole, 'tags'=>$tags]);
+     }
+ public function tags(Request $request)
+    {
+        $search=$request->get('taguri');
+        $articole=db::table('article_tag')
+        ->select("articles.title","articles.context","articles.date","articles.status","articles.slug","articles.image")
+        ->join('articles', 'articles.id', '=', 'article_tag.article_id')
+       ->join('tags', 'article_tag.tag_id', '=', 'tags.id')
+       ->where('tags.slug',$search)
+       ->get();
+      
+        $tags = DB::table('tags')->get();
+        return view('home',['articole'=>$articole, 'tags'=>$tags]);
+    } 
+    
+public function readmore(Request $request)
+{
+    $search=$request->get('read_more');
+    $leg=$request->get('leg');
+    $articole=db::table('articles')
+    ->where('articles.slug',$search)
+    ->get();
+
+    $tags = DB::table('tags')->get();
+
+    $comment = DB::table('comments')
+    ->select('comments.context', 'comments.date','users.username')
+    ->join('articles','articles.id','=','comments.articol_id')
+    ->join('users','users.id','=','comments.user_id')
+    ->where('comments.articol_id',$leg)
+    ->get();
+    return view('/readmore',['articole'=>$articole, 'tags'=>$tags,'comment'=>$comment]);
+}
 }

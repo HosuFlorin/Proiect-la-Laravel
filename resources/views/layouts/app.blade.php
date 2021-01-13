@@ -53,11 +53,22 @@
                                 </li>
                             @endif
                         @else
+                        
+                        <form action="/search" method="GET" >
+                             <div class="input-group">
+                                <input type="search" name="search" class="form-control">
+                                <span class="input-group-prepend">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </span>
+                             </div>
+                            </form>
+                        
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link " href="home">
                                     Home
                                 </a>
                             </li>
+                            
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -66,11 +77,11 @@
                                 
                                 
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                   
-                                    <a class="dropdown-item" href="Programare_Web" >Programare Web</a>
-                                    <a class="dropdown-item" href="Baze_de_Date" >Baze de Date</a>
-                                    <a class="dropdown-item" href="Android" >Android</a>
-                                    
+                                 
+                                   <a class="dropdown-item" href="programareweb">Programare Web</a>
+                                   <a class="dropdown-item" href="retele">Retele</a>
+                                   <a class="dropdown-item" href="android">Android</a>
+                                   <a class="dropdown-item" href="winapp">Windows Application</a>
                               
 
                                 </div>
@@ -83,13 +94,14 @@
                                 
                                 
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                   <a class="dropdown-item" href="update" >Update</a>
+                                    <a class="dropdown-item" href='addarticol' >Add Article</a>
                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Log out') }}
                                     </a>
-                                    <a class="dropdown-item" href="update" >Update</a>
-
+                                   
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

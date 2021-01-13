@@ -1,0 +1,21 @@
+created:
+    - database/factories/Models/CategoryFactory.php
+    - database/factories/Models/ArticleFactory.php
+    - database/factories/models/TagFactory.php
+    - database/migrations/2021_01_03_133855_create_categories_table.php
+    - database/migrations/2021_01_03_133856_create_articles_table.php
+    - database/migrations/2021_01_03_133857_create_tags_table.php
+    - database/migrations/2021_01_03_133858_create_article_tag_table.php
+    - app/Models/Category.php
+    - app/Models/Article.php
+    - app/models/Tag.php
+    - database/seeders/ArticleSeeder.php
+    - database/seeders/CategorySeeder.php
+    - database/seeders/TagSeeder.php
+models:
+    Category: { parent_id: 'id foreign:categories nullable', lft: 'integer unsigned nullable', rgt: 'integer unsigned nullable', depth: 'integer unsigned nullable', name: string, slug: string, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Article } }
+    Article: { category_id: 'id foreign', title: string, slug: 'string unique default:''''', context: text, image: 'string nullable', status: 'enum:PUBLISHED,DRAFT', date: date, featured: 'boolean default:0', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag } }
+    Tag: { name: string, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Article } }
+    Models\Category: { parent_id: 'id foreign:categories nullable', lft: 'integer unsigned nullable', rgt: 'integer unsigned nullable', depth: 'integer unsigned nullable', name: string, slug: string, timestamps: timestamps, softdeletes: softDeletes, relationships: { hasMany: Article } }
+    Models\Article: { category_id: 'id foreign', title: string, slug: 'string unique default:''''', context: text, image: 'string nullable', status: 'enum:PUBLISHED,DRAFT', date: date, featured: 'boolean default:0', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Tag } }
+    models\Tag: { name: string, slug: 'string unique', timestamps: timestamps, softdeletes: softDeletes, relationships: { belongsToMany: Article } }
