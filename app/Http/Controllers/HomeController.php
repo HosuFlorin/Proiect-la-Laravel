@@ -65,7 +65,7 @@ public function search( Request $request )
     {
         $search=$request->get('taguri');
         $articole=db::table('article_tag')
-        ->select("articles.title","articles.context","articles.date","articles.status","articles.slug","articles.image")
+        ->select("articles.title","articles.context","articles.date","articles.status","articles.slug","articles.image","articles.id")
         ->join('articles', 'articles.id', '=', 'article_tag.article_id')
        ->join('tags', 'article_tag.tag_id', '=', 'tags.id')
        ->where('tags.slug',$search)
