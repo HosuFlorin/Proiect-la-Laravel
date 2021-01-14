@@ -17,7 +17,7 @@ class WinAppConntroller extends Controller
       
         $id=4;
         $articole = DB::table('articles')
-        ->select("articles.title","articles.context","articles.date","articles.status","articles.slug","articles.image")
+        ->select("articles.title","articles.context","articles.date","articles.status","articles.slug","articles.image","articles.id")
         ->join('categories', 'articles.category_id', '=', 'categories.id')
         ->where('articles.category_id', $id)
         ->orderBy('date','DESC')
